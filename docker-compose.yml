@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: .
+    container_name: ${PROJECT_NAME}_api
+    ports:
+      - ${PORT_API}:${PORT_API}
+    volumes:
+      - ./:/usr/app
+    environment:
+      - PORT=${PORT_API}
+    depends_on:
+      - db
+    networks:
+      - network_db
+  db:
+    image: cockroachdb/cockroach:latest-v23.2
+    container_name: ${PROJECT_NAME}_db
+    ports:
+      - ${PORT_DB}:26257
+      - ${PORT_DB_SECONDARY}:8080
+    command: start-single-node --insecure
+    volumes:
+      - ./db_data:/cockroach/cockroach-data
+    environment:
+      - COCKROACH_USER=${USER_DB}
+      - COCKROACH_PASSWORD=${PASS_DB}
+      - COCKROACH_DATABASE=${NAME_DB}
+    networks:
+      - network_db
+
+networks:
+  network_db:
