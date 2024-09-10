@@ -31,5 +31,10 @@ func ConnectDatabase() *gorm.DB {
 func SyncEntities() {
 	db := ConnectDatabase()
 
+	db.AutoMigrate(&entities.Rate{})
 	db.AutoMigrate(&entities.Account{})
+	db.AutoMigrate(&entities.Budget{})
+	db.AutoMigrate(&entities.Operation{})
+	db.AutoMigrate(&entities.Currency{})
+	db.AutoMigrate(&entities.User{})
 }

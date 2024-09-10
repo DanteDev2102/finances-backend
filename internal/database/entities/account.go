@@ -9,4 +9,6 @@ type Account struct {
 	Name    string
 	Balance float64
 	Icon    string
+	Active  bool
+	UserID  uint
 }
