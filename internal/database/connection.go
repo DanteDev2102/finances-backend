@@ -11,9 +11,12 @@ import (
 	"gorm.io/gorm"
 )
 
-func ConnectDatabase() *gorm.DB {
-	env := enviroment.Enviroments()
+var (
+	env *enviroment.TEnv = enviroment.Env
+	DB  *gorm.DB
+)
 
+func init() {
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		env.HostDB, env.UserDB, env.PassDB, env.NameDB, env.PortDB,
@@ -25,16 +28,14 @@ func ConnectDatabase() *gorm.DB {
 		log.Fatal(err)
 	}
 
-	return db
+	DB = db
 }
 
 func SyncEntities() {
-	db := ConnectDatabase()
-
-	db.AutoMigrate(&entities.Rate{})
-	db.AutoMigrate(&entities.Account{})
-	db.AutoMigrate(&entities.Budget{})
-	db.AutoMigrate(&entities.Operation{})
-	db.AutoMigrate(&entities.Currency{})
-	db.AutoMigrate(&entities.User{})
+	DB.AutoMigrate(&entities.Rate{})
+	DB.AutoMigrate(&entities.Account{})
+	DB.AutoMigrate(&entities.Budget{})
+	DB.AutoMigrate(&entities.Operation{})
+	DB.AutoMigrate(&entities.Currency{})
+	DB.AutoMigrate(&entities.User{})
 }

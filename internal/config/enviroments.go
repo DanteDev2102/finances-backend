@@ -7,7 +7,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Env struct {
+type TEnv struct {
 	Port   string
 	HostDB string
 	PassDB string
@@ -16,15 +16,19 @@ type Env struct {
 	PortDB string
 }
 
-func Enviroments() Env {
-	err := godotenv.Load()
+var err error = godotenv.Load()
 
+var env TEnv
+
+var Env *TEnv = &env
+
+func init() {
 	if err != nil {
 		fmt.Println(err)
-		return Env{}
+		env = TEnv{}
 	}
 
-	return Env{
+	env = TEnv{
 		Port:   os.Getenv("PORT_API"),
 		HostDB: os.Getenv("HOST_DB"),
 		UserDB: os.Getenv("USER_DB"),

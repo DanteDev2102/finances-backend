@@ -1,18 +1,18 @@
 package main
 
 import (
+	api "finances/cmd/api"
 	enviroment "finances/internal/config"
 	db "finances/internal/database"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	app := fiber.New()
+	app := api.App
 
-	env := enviroment.Enviroments()
+	env := enviroment.Env
 
 	db.SyncEntities()
 
 	app.Listen(":" + env.Port)
+
 }
