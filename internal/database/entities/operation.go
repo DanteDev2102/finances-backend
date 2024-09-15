@@ -9,6 +9,7 @@ type ETypeOperations string
 const (
 	Income   ETypeOperations = "income"
 	Outgoing ETypeOperations = "outgoing"
+	Transfer ETypeOperations = "transfer"
 )
 
 type Operation struct {
