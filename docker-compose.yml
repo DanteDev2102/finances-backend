@@ -3,6 +3,7 @@ services:
     build:
       context: .
     container_name: ${PROJECT_NAME}_api
+    command: air ./cmd/main.go -b 0.0.0.0
     ports:
       - ${PORT_API}:${PORT_API}
     volumes:

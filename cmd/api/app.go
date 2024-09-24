@@ -10,9 +10,9 @@ var App *fiber.App = fiber.New(fiber.Config{CaseSensitive: true, AppName: "Finan
 var RouterHandler fiber.Router = App.Group("/api/v2")
 
 func init() {
-	RouterHandler.Get("/monitor", middlewares.Monitor)
-
 	App.Use(middlewares.Healthcheck)
 	App.Use(middlewares.Cors)
 	App.Use(middlewares.Helmet)
+	
+	RouterHandler.Get("/monitor", middlewares.Monitor)
 }

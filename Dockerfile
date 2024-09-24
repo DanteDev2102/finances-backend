@@ -1,10 +1,10 @@
-FROM golang:1.22
+FROM golang:1.23
 
 WORKDIR /usr/app
 
 COPY . .
 
-RUN go mod tidy
-RUN go mod download
+# RUN go mod tidy
+RUN go install github.com/air-verse/air@latest
 
-CMD ["go", "run", "cmd/main.go"]
+RUN go mod download
