@@ -6,7 +6,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Username   string
+	Username   string	   `gorm:"uniqueIndex:compositeIndex;index;not null"`
 	Password   string
 	Active     bool
 	Budgets    []Budget    `gorm:"foreignKey:UserID"`
